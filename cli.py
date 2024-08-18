@@ -1,4 +1,6 @@
 from chess import Chess
+from exceptions import CasillaOcupada, PiezaNoExiste
+
 
 def main():
     chess = Chess()
@@ -23,25 +25,32 @@ def main():
             if from_row == 123321:
                 break
 
-            if not (0 < from_row < 8):
+            if not (0 <= from_row < 8):
                 raise IndexError
 
 
             from_col = int(input('From col: '))
 
-            if not 0 < from_col < 8:
+            if not 0 <= from_col < 8:
                 raise IndexError
 
             to_row = int(input('To row: '))
 
-            if not 0 < to_row < 8:
+            if not 0 <= to_row < 8:
                 raise IndexError
 
             to_col = int(input('To col: '))
 
-            if not 0 < to_col < 8:
+            if not 0 <= to_col < 8:
                 raise IndexError
 
+            
+            if chess.move(from_row, from_col, to_row, to_col) == "CasillaOcupada":
+                raise CasillaOcupada
+            
+            if chess.move(from_row, from_col, to_row, to_col) == "PiezaNoExiste":
+                raise PiezaNoExiste
+            
             chess.move(from_row, from_col, to_row, to_col)
 
         #Aca atrapamos TODOS los errores
@@ -49,9 +58,14 @@ def main():
             print("El valor introducido no es un entero. Intentelo de nuevo.")
         except IndexError as e:
             print("Numero de fila o columna incorrecto. Intentelo de nuevo.")
+        except CasillaOcupada as e:
+            print(e.message)
+        except PiezaNoExiste as e:
+            print(e.message)
 
 
 
 
 if __name__ == '__main__':
     main()
+

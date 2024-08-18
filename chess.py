@@ -11,14 +11,16 @@ class Chess:
         
         board = self.__board__.get_positions()
 
-        if board[to_row][to_col] is None:        
+        if board[to_row][to_col] is not None:   
+            return "CasillaOcupada" 
+            
+        elif board[from_row][from_col] is None:
+            return "PiezaNoExiste"
+
+        else:
             board[to_row][to_col] =  board[from_row][from_col]
             board[from_row][from_col] = None
-        
-        else:
-            return "error"
-
-        self.change_turn()
+            self.change_turn()
 
     
     def change_turn(self):
@@ -30,5 +32,3 @@ class Chess:
     def get_board(self):
         return self.__board__.get_positions()
         
-
-
