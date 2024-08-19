@@ -52,7 +52,13 @@ class Board:
 
     def get_positions(self):
         return self.__positions__
+    
+    def set_positions(self, from_row, from_col, to_row, to_col):
+        self.__positions__[to_row][to_col] = self.__positions__[from_row][from_col]
+        self.__positions__[from_row][from_col] = None
 
     def get_piece(self, row, col):
+        if self.__positions__[row][col] is None:
+            return None
+        
         return self.__positions__[row][col]
-

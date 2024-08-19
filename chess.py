@@ -8,18 +8,21 @@ class Chess:
     def move(self, from_row, from_col, to_row, to_col):
 
         piece = self.__board__.get_piece(from_row, from_col)
-        
+        destination = self.__board__.get_piece(to_row, to_col)
+
         board = self.__board__.get_positions()
 
-        if board[to_row][to_col] is not None:   
+        if from_row == to_row and from_col == to_col:
+            return "MismaCasilla"
+
+        if destination is not None:
             return "CasillaOcupada" 
             
-        elif board[from_row][from_col] is None:
+        elif piece is None:
             return "PiezaNoExiste"
 
         else:
-            board[to_row][to_col] =  board[from_row][from_col]
-            board[from_row][from_col] = None
+            self.__board__.set_positions(from_row, from_col, to_row, to_col)
             self.change_turn()
 
     

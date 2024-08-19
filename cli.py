@@ -1,5 +1,5 @@
 from chess import Chess
-from exceptions import CasillaOcupada, PiezaNoExiste
+from exceptions import CasillaOcupada, PiezaNoExiste, MismaCasilla
 
 
 def main():
@@ -44,6 +44,8 @@ def main():
             if not 0 <= to_col < 8:
                 raise IndexError
 
+            if chess.move(from_row, from_col, to_row, to_col) == "MismaCasilla":
+                raise MismaCasilla
             
             if chess.move(from_row, from_col, to_row, to_col) == "CasillaOcupada":
                 raise CasillaOcupada
@@ -61,6 +63,8 @@ def main():
         except CasillaOcupada as e:
             print(e.message)
         except PiezaNoExiste as e:
+            print(e.message)
+        except MismaCasilla as e:
             print(e.message)
 
 
