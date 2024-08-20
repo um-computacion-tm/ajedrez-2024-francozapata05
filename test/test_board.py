@@ -1,6 +1,6 @@
 import unittest
-from board import Board
-from chess import Chess
+from main.board import Board
+from main.chess import Chess
 
 class TestBoard(unittest.TestCase):
 
@@ -19,21 +19,21 @@ class TestBoard(unittest.TestCase):
     def test_set_positions(self):
         chess = Chess()
         board = chess.get_board()
-        board_object = chess.__board__
+        positions = chess.get_board().get_positions()
         #Cambiar posicion de una pieza
-        board_object.set_positions(1, 0, 3, 0)
-        self.assertIsNone(board[1][0])
-        self.assertIsNotNone(board[3][0])
+        board.set_positions(1, 0, 3, 0)
+        self.assertIsNone(positions[1][0])
+        self.assertIsNotNone(positions[3][0])
 
     def test_get_piece(self):
         chess = Chess()
-        board = chess.get_board()
+        positions= chess.get_board().get_positions()
         #Obtener pieza en casilla (1, 0)
-        self.assertIsNotNone(board[1][0])
+        self.assertIsNotNone(positions[1][0])
 
     def test_get_piece_not_exist(self):
         chess = Chess()
-        board = chess.get_board()
+        positions= chess.get_board().get_positions()
         #Obtener pieza donde no hay(4, 0)
-        self.assertIsNone(board[4][1])
+        self.assertIsNone(positions[4][1])
 

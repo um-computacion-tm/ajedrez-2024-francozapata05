@@ -1,9 +1,17 @@
-from bishop import Bishop
-from knight import Knight
-from rook import Rook
-from king import King
-from queen import Queen
-from pawn import Pawn
+try:
+    from .bishop import Bishop
+    from .knight import Knight
+    from .rook import Rook
+    from .king import King
+    from .queen import Queen
+    from .pawn import Pawn
+except ImportError:
+    from bishop import Bishop
+    from knight import Knight
+    from rook import Rook
+    from king import King
+    from queen import Queen
+    from pawn import Pawn
 
 class Board:
     def __init__(self):
@@ -62,3 +70,11 @@ class Board:
             return None
         
         return self.__positions__[row][col]
+
+
+    def validate_move(self, positions, from_row, from_col, to_row, to_col):
+        validando = positions[from_row][from_col].validate_movement(self.__positions__, from_row, from_col, to_row, to_col)
+        if validando == "MovimientoInvalido":
+            return "MovimientoInvalido"
+        elif validando == "Valido":
+            return "Valido"

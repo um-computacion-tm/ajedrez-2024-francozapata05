@@ -1,10 +1,15 @@
-from chess import Chess
-from exceptions import CasillaOcupada, PiezaNoExiste, MismaCasilla
+try:
+    from .chess import Chess
+    from .exceptions import CasillaOcupada, PiezaNoExiste, MismaCasilla, ColorIncorrecto, MovimientoInvalido
+except ImportError:
+    from chess import Chess
+    from exceptions import CasillaOcupada, PiezaNoExiste, MismaCasilla, ColorIncorrecto, MovimientoInvalido
 
 
 def main():
     chess = Chess()
     board = chess.get_board()
+    positions = board.get_positions()
 
     while True: 
 
@@ -14,7 +19,7 @@ def main():
         # Imprimir una línea de separación antes de la primera fila
         print("  " + "----" * 8)  # Línea superior
 
-        for i, fila in enumerate(board):
+        for i, fila in enumerate(positions):
             fila_str = ' | '.join([str(piece) if piece else ' ' for piece in fila])
             print(f'{i} | {fila_str} |')  # Imprimir número de fila seguido de la fila
             print("  " + "----" * 8)  # Imprimir línea de separación entre filas
@@ -43,17 +48,24 @@ def main():
 
             if not 0 <= to_col < 8:
                 raise IndexError
+            
+            movement = chess.move(from_row, from_col, to_row, to_col)
 
-            if chess.move(from_row, from_col, to_row, to_col) == "MismaCasilla":
+            if movement == "ColorIncorrecto":
+                raise ColorIncorrecto
+
+            if movement == "MismaCasilla":
                 raise MismaCasilla
             
-            if chess.move(from_row, from_col, to_row, to_col) == "CasillaOcupada":
+            if movement == "CasillaOcupada":
                 raise CasillaOcupada
             
-            if chess.move(from_row, from_col, to_row, to_col) == "PiezaNoExiste":
+            if movement == "PiezaNoExiste":
                 raise PiezaNoExiste
             
-            chess.move(from_row, from_col, to_row, to_col)
+            if movement == "MovimientoInvalido":
+                raise MovimientoInvalido
+            
 
         #Aca atrapamos TODOS los errores
         except ValueError as e:
@@ -65,6 +77,10 @@ def main():
         except PiezaNoExiste as e:
             print(e.message)
         except MismaCasilla as e:
+            print(e.message)
+        except ColorIncorrecto as e:
+            print(e.message)
+        except MovimientoInvalido as e:
             print(e.message)
 
 
