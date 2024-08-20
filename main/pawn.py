@@ -1,8 +1,4 @@
-try:
-    from .piece import Piece
-except ImportError:
-    from piece import Piece
-
+from main.piece import Piece
 from math import sqrt
 
 class Pawn(Piece):

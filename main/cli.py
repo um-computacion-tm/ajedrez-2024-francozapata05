@@ -1,10 +1,5 @@
-try:
-    from .chess import Chess
-    from .exceptions import CasillaOcupada, PiezaNoExiste, MismaCasilla, ColorIncorrecto, MovimientoInvalido
-except ImportError:
-    from chess import Chess
-    from exceptions import CasillaOcupada, PiezaNoExiste, MismaCasilla, ColorIncorrecto, MovimientoInvalido
-
+from main.chess import Chess
+from main.exceptions import CasillaOcupada, PiezaNoExiste, MismaCasilla, ColorIncorrecto, MovimientoInvalido
 
 def main():
     chess = Chess()

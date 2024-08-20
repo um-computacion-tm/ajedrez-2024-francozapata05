@@ -1,18 +1,10 @@
-try:
-    from .bishop import Bishop
-    from .knight import Knight
-    from .rook import Rook
-    from .king import King
-    from .queen import Queen
-    from .pawn import Pawn
-except ImportError:
-    from bishop import Bishop
-    from knight import Knight
-    from rook import Rook
-    from king import King
-    from queen import Queen
-    from pawn import Pawn
-
+from main.bishop import Bishop
+from main.knight import Knight
+from main.rook import Rook
+from main.king import King
+from main.queen import Queen
+from main.pawn import Pawn
+    
 class Board:
     def __init__(self):
         self.__positions__ = []

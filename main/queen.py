@@ -1,7 +1,4 @@
-try:
-    from .piece import Piece
-except ImportError:
-    from piece import Piece
+from main.piece import Piece
 
 class Queen(Piece):
     def __init__(self, color):
