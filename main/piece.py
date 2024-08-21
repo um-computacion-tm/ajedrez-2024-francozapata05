@@ -4,5 +4,3 @@ class Piece:
 
     def get_color(self):
         return self.__color__
-    
-

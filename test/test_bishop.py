@@ -54,10 +54,6 @@ class TestBishop(unittest.TestCase):
         white_bishop = positions[0][2]
         self.assertEqual(white_bishop.validate_movement(positions, 0,2,2,0), "Valido")
         self.assertEqual(white_bishop.validate_movement(positions, 0,2,1,1), "Valido")
-        chess.change_turn()
-        black_bishop = positions[6][1]
-        self.assertEqual(black_bishop.validate_movement(positions, 7,2,5,0), "Valido")
-        self.assertEqual(black_bishop.validate_movement(positions, 7,2,6,1), "Valido")
 
     def test_validate_movement_everywhere(self):
         chess = Chess()

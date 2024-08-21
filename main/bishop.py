@@ -1,5 +1,4 @@
-from main.piece import Piece 
-
+from .piece import Piece 
 
 class Bishop(Piece):
     def __init__(self, color):

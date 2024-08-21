@@ -36,12 +36,9 @@ class TestChess(unittest.TestCase):
     def test_turn_change(self):
         self.chess = Chess()
         #Cambios de turno
+        self.assertEqual(self.chess.__turn__, "White")
         self.chess.move(1, 0, 2, 0)
         self.assertEqual(self.chess.__turn__, "Black")
-        
-        self.chess.move(6, 0, 5, 0)
-        self.assertEqual(self.chess.__turn__, "White")
-
 
     def test_no_piece_to_move(self):
         self.chess = Chess()

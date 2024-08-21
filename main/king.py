@@ -1,4 +1,7 @@
-from main.piece import Piece
+try:
+    from .piece import Piece
+except ImportError:
+    from piece import Piece
 
 from math import sqrt
 

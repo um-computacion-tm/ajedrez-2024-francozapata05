@@ -1,13 +1,20 @@
 from main.chess import Chess
 from main.exceptions import CasillaOcupada, PiezaNoExiste, MismaCasilla, ColorIncorrecto, MovimientoInvalido
 
+
+
 def main():
+
+
     chess = Chess()
     board = chess.get_board()
     positions = board.get_positions()
 
-    while True: 
 
+    while True:
+
+        print("Para salir inserte 999 en fila de origen.")
+        print("Turno: " + chess.get_turn())
         # Imprimiendo el tablero con números de fila y columna
         print("   " + "   ".join([str(i) for i in range(8)]))
 
@@ -22,8 +29,8 @@ def main():
         try:
             from_row = int(input('From row: '))
 
-            if from_row == 123321:
-                break
+            if from_row == 999:
+                break 
 
             if not (0 <= from_row < 8):
                 raise IndexError

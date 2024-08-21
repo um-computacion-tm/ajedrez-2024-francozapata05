@@ -44,5 +44,6 @@ class Chess:
 
     def get_board(self):
         return self.__board__
-
-
+    
+    def get_turn(self):
+        return self.__turn__

@@ -4,7 +4,7 @@ from main.rook import Rook
 from main.king import King
 from main.queen import Queen
 from main.pawn import Pawn
-    
+
 class Board:
     def __init__(self):
         self.__positions__ = []
