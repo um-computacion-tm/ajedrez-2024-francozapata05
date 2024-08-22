@@ -4,6 +4,7 @@ class Chess:
     def __init__(self):
         self.__board__ = Board()
         self.__turn__ = "White"
+        self.__ganador__ = None
     
     def move(self, from_row, from_col, to_row, to_col):
 
@@ -14,7 +15,6 @@ class Chess:
 
         color_piece = piece.get_color()
         destination = self.__board__.get_piece(to_row, to_col)
-
 
         if color_piece != self.__turn__:
             return "ColorIncorrecto"
@@ -31,9 +31,14 @@ class Chess:
             validar = self.__board__.validate_move(self.__board__.get_positions(), from_row, from_col, to_row, to_col)
             if validar == "MovimientoInvalido":
                 return "MovimientoInvalido"
+        
+            if destination != None and destination.get_name() == "King" and destination.get_color() != self.__turn__:
+                self.__ganador__ = self.__turn__
+                return "ReyEliminado"
             
             self.__board__.set_positions(from_row, from_col, to_row, to_col)
             self.change_turn()
+
 
     
     def change_turn(self):
@@ -47,3 +52,6 @@ class Chess:
     
     def get_turn(self):
         return self.__turn__
+
+    def get_ganador(self):
+        return self.__ganador__

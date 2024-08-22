@@ -22,9 +22,9 @@ class TestPawn(unittest.TestCase):
 
     def test_str(self):
         pawn_white = Pawn("White")
-        self.assertEqual(str(pawn_white), "♟")
+        self.assertEqual(str(pawn_white), "♙")
         pawn_black = Pawn("Black")
-        self.assertEqual(str(pawn_black), "♙")
+        self.assertEqual(str(pawn_black), "♟")
 
     def test_validate_movement_initial(self):
         chess = Chess()

@@ -10,11 +10,9 @@ class King(Piece):
         super().__init__(color)
         self.__name__ = "King"
 
-    def get_color(self):
-        return self.__color__
-
+    
     def __str__(self):
-        return '♚' if self.__color__ == 'White' else '♔'
+        return '♔' if self.__color__ == 'White' else '♚'
 
     def validate_movement(self, positions, from_row, from_col, to_row, to_col):
 

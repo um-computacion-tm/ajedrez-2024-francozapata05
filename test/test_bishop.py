@@ -27,9 +27,9 @@ class TestBishop(unittest.TestCase):
 
     def test_str(self):
         bishop_white = Bishop("White")
-        self.assertEqual(str(bishop_white), "♝")
+        self.assertEqual(str(bishop_white), "♗")
         bishop_black = Bishop("Black")
-        self.assertEqual(str(bishop_black), "♗")
+        self.assertEqual(str(bishop_black), "♝")
 
     #En condiciones iniciales, ningun alfil se puede mover, por los peones
     def test_validate_movement_initial(self):

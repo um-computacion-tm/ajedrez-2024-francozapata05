@@ -22,9 +22,9 @@ class TestRook(unittest.TestCase):
 
     def test_str(self):
         rook_white = Rook("White")
-        self.assertEqual(str(rook_white), "♜")
+        self.assertEqual(str(rook_white), "♖")
         rook_black = Rook("Black")
-        self.assertEqual(str(rook_black), "♖")
+        self.assertEqual(str(rook_black), "♜")
 
     # Evaluamos cada posible tipo de movimiento
     def test_validate_movement_initial(self):

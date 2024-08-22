@@ -1,6 +1,7 @@
 import unittest
 from main.board import Board
 from main.chess import Chess
+from main.queen import Queen
 
 
 class TestChess(unittest.TestCase):
@@ -59,3 +60,10 @@ class TestChess(unittest.TestCase):
         self.assertEqual(result, "CasillaOcupada")
         self.assertEqual(self.chess.__turn__, "White")
 
+    def test_end_game(self):
+        chess = Chess()
+        board = chess.get_board()
+        positions = board.get_positions()
+        positions[6][3] = Queen("White")
+        chess.__turn__ = "White"
+        self.assertEqual(chess.move(6, 3, 7, 3), "ReyEliminado")

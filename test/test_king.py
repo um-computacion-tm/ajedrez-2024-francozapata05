@@ -18,8 +18,8 @@ class TestKing(unittest.TestCase):
     def test_str(self):
         king_black = King("Black")
         king_white = King("White")
-        self.assertEqual(str(king_white), "♚")
-        self.assertEqual(str(king_black), "♔")
+        self.assertEqual(str(king_white), "♔")
+        self.assertEqual(str(king_black), "♚")
 
     def test_validate_movement_initial(self):
         chess = Chess()

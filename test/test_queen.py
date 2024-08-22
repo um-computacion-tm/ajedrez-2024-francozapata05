@@ -23,9 +23,9 @@ class TestQueen(unittest.TestCase):
 
     def test_str(self):
         queen_white = Queen("White")
-        self.assertEqual(str(queen_white), "♛")
+        self.assertEqual(str(queen_white), "♕")
         queen_black = Queen("Black")
-        self.assertEqual(str(queen_black), "♕")
+        self.assertEqual(str(queen_black), "♛")
 
     def test_validate_movement(self):
         chess = Chess()

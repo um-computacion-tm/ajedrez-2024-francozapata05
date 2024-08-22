@@ -8,13 +8,9 @@ class Pawn(Piece):
         self.__name__ = "Pawn"
 
     def __str__(self):
-        return '♟' if self.__color__ == 'White' else '♙'
+        return '♙' if self.__color__ == 'White' else '♟'
 
-    def get_color(self):
-        return self.__color__
 
-    def get_name(self):
-        return self.__name__
 
     def validate_movement(self, positions, from_row, from_col, to_row, to_col):        
         mov_fila = to_row - from_row

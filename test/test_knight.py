@@ -19,8 +19,8 @@ class TestKnight(unittest.TestCase):
     def test_str(self):
         knight_black = Knight("Black")
         knight_white = Knight("White")
-        self.assertEqual(str(knight_white), "♞")
-        self.assertEqual(str(knight_black), "♘")
+        self.assertEqual(str(knight_white), "♘")
+        self.assertEqual(str(knight_black), "♞")
 
     # Movimientos del caballo en posicion incial
     def test_validate_movement_initial(self):
