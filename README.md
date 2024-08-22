@@ -1,11 +1,5 @@
 Franco Zapata Ingenieria Informatica UM
 
-Falta:
-1. Validar que el peon en posicion inicial, se pueda mover dos casillas hacia adelante
-2. Validar los movimientos desde Chess, y no desde cada pieza.
-3. Que el programa finalice al oprimir ESC
-4. Lograr 100% de covertura de codigo
-
 # ajedrez-2024-francozapata05
 ajedrez-2024-francozapata05 created by GitHub Classroom
 

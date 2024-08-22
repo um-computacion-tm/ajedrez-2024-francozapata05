@@ -2,6 +2,7 @@ from main.chess import Chess
 from main.exceptions import CasillaOcupada, PiezaNoExiste, MismaCasilla, ColorIncorrecto, MovimientoInvalido
 import os
 
+# Esta funcion detecta que sistema operativo estamos usando, para poder limpiar la consola
 def clear_console():
     # Verifica si es Windows o Linux/macOS
     if os.name == 'nt':  # Para Windows
@@ -12,14 +13,13 @@ def clear_console():
 
 def main():
 
+    # Inicializacion del juego
     chess = Chess()
     board = chess.get_board()
     positions = board.get_positions()
 
 
     while True:
-        # Limpiar consola por cada iteracion
-        clear_console()
 
         print("Para salir inserte 999 en fila de origen.")
         print("Turno: " + chess.get_turn())
@@ -59,12 +59,21 @@ def main():
             if not 0 <= to_col < 8:
                 raise IndexError
             
+            
             movement = chess.move(from_row, from_col, to_row, to_col)
 
+            # Si el rey ha sido eliminado, terminamos la partida
             if movement == "ReyEliminado":
                 print("El rey ha sido eliminado. La partida ha terminado.")
                 print("El ganador es: " + chess.get_ganador())
                 break
+
+            # Limpiar consola por cada iteracion
+            clear_console()
+
+            # Si el movimiento es valido, nos ahorramos las Excepciones
+            if movement == "Valido":
+                continue
 
             if movement == "ColorIncorrecto":
                 raise ColorIncorrecto
@@ -87,6 +96,7 @@ def main():
             print("El valor introducido no es un entero. Intentelo de nuevo.")
         except IndexError as e:
             print("Numero de fila o columna incorrecto. Intentelo de nuevo.")
+        # Excepciones Personalizadas
         except CasillaOcupada as e:
             print(e.message)
         except PiezaNoExiste as e:
@@ -97,8 +107,6 @@ def main():
             print(e.message)
         except MovimientoInvalido as e:
             print(e.message)
-
-
 
 
 if __name__ == '__main__':

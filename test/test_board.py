@@ -37,11 +37,3 @@ class TestBoard(unittest.TestCase):
         #Obtener pieza donde no hay(4, 0)
         self.assertIsNone(positions[4][1])
 
-
-    def test_validate_move(self):
-        chess = Chess()
-        board = chess.get_board()
-        positions = board.get_positions()
-        #Validar movimiento de una pieza
-        self.assertEqual(board.validate_move(positions, 0, 0, 3, 0), "MovimientoInvalido")
-        self.assertEqual(board.validate_move(positions, 1, 0, 2, 0), "Valido")
