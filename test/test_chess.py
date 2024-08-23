@@ -51,7 +51,6 @@ class TestChess(unittest.TestCase):
     def test_wrong_turn(self):
         chess = Chess()
         board = chess.get_board()
-        positions = board.get_positions()
         self.assertEquals(chess.move(6, 0, 4, 0), "ColorIncorrecto")
 
 
@@ -70,14 +69,14 @@ class TestChess(unittest.TestCase):
         chess = Chess()
         board = chess.get_board()
         positions = board.get_positions()
-        positions[6][3] = Queen("White")
+        positions[6][3] = Queen("Queen","White")
         self.assertEqual(chess.move(6, 3, 7, 3), "ReyEliminado")
 
     def test_get_ganador(self):
         chess = Chess()
         positions = chess.get_board().get_positions()
         self.assertEqual(chess.get_ganador(), None)
-        positions[6][3] = Queen("White")
+        positions[6][3] = Queen("Queen","White")
         chess.move(6, 3, 7, 3)
         self.assertEqual(chess.get_ganador(), "White")
         
@@ -106,7 +105,7 @@ class TestChessMovimientos(unittest.TestCase):
         chess = Chess()
         board = chess.get_board()
         new_positions = board.get_positions()
-        new_positions[3][3] = Bishop("White")
+        new_positions[3][3] = Bishop("Bishop","White")
         self.assertEqual(chess.analizar_movimiento(new_positions, 3,3,2,2), "Valido")
         self.assertEqual(chess.analizar_movimiento(new_positions, 3,3,2,4), "Valido")
         self.assertEqual(chess.analizar_movimiento(new_positions, 3,3,4,2), "Valido")
@@ -162,7 +161,7 @@ class TestChessMovimientos(unittest.TestCase):
         chess = Chess()
         board = chess.get_board()
         positions = board.get_positions()
-        positions[4][4] = Knight("White")
+        positions[4][4] = Knight("Knight","White")
         #Inserto un caballo en el medio del tablero para evaluar sus movimientos
         self.assertEqual(chess.analizar_movimiento(positions, 4,4,3,6), "Valido")
         self.assertEqual(chess.analizar_movimiento(positions, 4,4,3,2), "Valido")
@@ -198,7 +197,7 @@ class TestChessMovimientos(unittest.TestCase):
         chess = Chess()
         board = chess.get_board()
         positions = board.get_positions()
-        positions[4][4] = King("White")
+        positions[4][4] = King("King","White")
         self.assertEqual(chess.analizar_movimiento(positions, 4, 4, 3, 3), "Valido")
         self.assertEqual(chess.analizar_movimiento(positions, 4, 4, 3, 4), "Valido")
         self.assertEqual(chess.analizar_movimiento(positions, 4, 4, 3, 5), "Valido")
@@ -224,7 +223,7 @@ class TestChessMovimientos(unittest.TestCase):
         chess = Chess()
         board = chess.get_board()
         positions = board.get_positions()
-        positions[4][4] = Queen("White")
+        positions[4][4] = Queen("Queen","White")
         self.assertEqual(chess.analizar_movimiento(positions, 4, 4, 4, 2), "Valido")
         self.assertEqual(chess.analizar_movimiento(positions, 4, 4, 3, 2), "MovimientoInvalido")
         self.assertEqual(chess.analizar_movimiento(positions, 4, 4, 2, 2), "Valido")
@@ -239,7 +238,7 @@ class TestChessMovimientos(unittest.TestCase):
         chess = Chess()
         board = chess.get_board()
         positions = board.get_positions()
-        positions[6][0] = Queen("White")
+        positions[6][0] = Queen("Queen","White")
         #En diagonal
         self.assertEqual(chess.analizar_movimiento(positions, 6,0,7,1), "Valido")
         #Horizontal
@@ -274,8 +273,8 @@ class TestChessMovimientos(unittest.TestCase):
         chess = Chess()
         board = chess.get_board()
         positions = board.get_positions()
-        positions[5][0] = Pawn("White")
-        positions[6][1] = Pawn("Black")
-        positions[6][0] = Pawn("Black")
+        positions[5][0] = Pawn("Pawn","White")
+        positions[6][1] = Pawn("Pawn","Black")
+        positions[6][0] = Pawn("Pawn","Black")
         self.assertEqual(chess.analizar_movimiento(positions, 5,0,6,0), "MovimientoInvalido")
         self.assertEqual(chess.analizar_movimiento(positions, 5,0,6,1), "Valido") 
