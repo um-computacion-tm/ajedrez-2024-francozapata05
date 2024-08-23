@@ -26,12 +26,12 @@ class ReglasDeMovimientos:
 
     def analizar_camino(self, positions, distancias, inputs):
         origen = positions[inputs[0]][inputs[1]]
-        inc_fila = int(distancias[0][0] / abs(distancias[0][0]))
-        inc_columna = int(distancias[0][1] / abs(distancias[0][1]))
+        inc_fila = int(distancias[0] / abs(distancias[0]))
+        inc_columna = int(distancias[1] / abs(distancias[1]))
         #Analizamos si alguna casilla que atraviese esta ocupada
-        for casilla in range(1, abs(distancias[0][0]) + 1, abs(inc_fila)):
+        for casilla in range(1, abs(distancias[0]) + 1, abs(inc_fila)):
 
-            if casilla == abs(distancias[0][0]) and positions[inputs[2]][inputs[3]] != None:
+            if casilla == abs(distancias[0]) and positions[inputs[2]][inputs[3]] != None:
                 if positions[inputs[2]][inputs[3]].get_color() != origen.__color__:
                     return "Valido"
 
