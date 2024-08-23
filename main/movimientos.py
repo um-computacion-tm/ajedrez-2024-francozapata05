@@ -5,46 +5,50 @@ class ReglasDeMovimientos:
     def __init__(self) -> None:
         pass
     
-    def movimiento_diagonal(chess, positions, from_row, from_col, to_row, to_col):
-        
+    def calcular_distancia(self, from_row, from_col, to_row, to_col):
         #Calculamos la distancia entre las casillas
         mov_fila = abs(to_row) - abs(from_row)
         mov_columna = abs(to_col) - abs(from_col) 
+        return [mov_fila, mov_columna]
 
+    def movimiento_diagonal(chess, positions, from_row, from_col, to_row, to_col):
+        reglas = ReglasDeMovimientos()
+        #Calculamos la distancia entre las casilla
+        distancias = reglas.calcular_distancia(from_row, from_col, to_row, to_col)
         #Detectamos aritmeticamente si el movimiento es diagonal
-        if  abs(mov_fila) == abs(mov_columna):
-
-            inc_fila = int(mov_fila / abs(mov_fila))
-            inc_columna = int(mov_columna / abs(mov_columna))
+        if  abs(distancias[0]) == abs(distancias[1]):
 
             #Analizamos si alguna casilla que atraviese esta ocupada
-            return chess.analizar_camino(positions, mov_fila, inc_fila, inc_columna, from_row, from_col, to_row, to_col)
+            inputs = [from_row, from_col, to_row, to_col]
+            return chess.analizar_camino(positions, distancias, inputs)
 
         return "MovimientoInvalido"
 
-    def analizar_camino(self, positions, mov_fila, inc_fila, inc_columna, from_row, from_col, to_row, to_col):
-        origen = positions[from_row][from_col]
+    def analizar_camino(self, positions, distancias, inputs):
+        origen = positions[inputs[0]][inputs[1]]
+        inc_fila = int(distancias[0] / abs(distancias[0]))
+        inc_columna = int(distancias[1] / abs(distancias[1]))
         #Analizamos si alguna casilla que atraviese esta ocupada
-        for casilla in range(1, abs(mov_fila) + 1, abs(inc_fila)):
+        for casilla in range(1, abs(distancias[0]) + 1, abs(inc_fila)):
 
-            if casilla == abs(mov_fila) and positions[to_row][to_col] != None:
-                if positions[to_row][to_col].get_color() != origen.__color__:
+            if casilla == abs(distancias[0]) and positions[inputs[2]][inputs[3]] != None:
+                if positions[inputs[2]][inputs[3]].get_color() != origen.__color__:
                     return "Valido"
 
             if inc_fila > 0 and inc_columna > 0:
-                if positions[from_row + casilla][from_col + casilla] != None:
+                if positions[inputs[0] + casilla][inputs[1] + casilla] != None:
                     return "MovimientoInvalido"
 
             elif inc_fila > 0 and inc_columna < 0:
-                if positions[from_row + casilla][from_col - casilla] != None:
+                if positions[inputs[0] + casilla][inputs[1] - casilla] != None:
                     return "MovimientoInvalido"
 
             elif inc_fila < 0 and inc_columna > 0:
-                if positions[from_row - casilla][from_col + casilla] != None:
+                if positions[inputs[0] - casilla][inputs[1] + casilla] != None:
                     return "MovimientoInvalido"
 
             elif inc_fila < 0 and inc_columna < 0:
-                if positions[from_row - casilla][from_col - casilla] != None:
+                if positions[inputs[0] - casilla][inputs[1] - casilla] != None:
                     return "MovimientoInvalido"
 
         return "Valido"
