@@ -72,25 +72,26 @@ class Chess:
 
         # Movimiento Rook
         if nombre_pieza == "Rook":
-            return reglas.movimiento_perpendicular(positions, from_row, from_col, to_row, to_col)
+            validacion = reglas.movimiento_perpendicular(positions, from_row, from_col, to_row, to_col)
 
         # Movimiento knight
-        if nombre_pieza == "Knight":
-            return reglas.movimiento_knight(positions, from_row, from_col, to_row, to_col)
+        elif nombre_pieza == "Knight":
+            validacion = reglas.movimiento_knight(positions, from_row, from_col, to_row, to_col)
 
         # Movimiento Bishop
-        if nombre_pieza == "Bishop":
-            return reglas.movimiento_diagonal(positions, from_row, from_col, to_row, to_col)
+        elif nombre_pieza == "Bishop":
+            validacion = reglas.movimiento_diagonal(positions, from_row, from_col, to_row, to_col)
 
         # Movimiento Queen
-        if nombre_pieza == "Queen":
-            return reglas.movimiento_queen(positions, from_row, from_col, to_row, to_col)
+        elif nombre_pieza == "Queen":
+            validacion = reglas.movimiento_queen(positions, from_row, from_col, to_row, to_col)
         
         # Movimiento King
-        if nombre_pieza == "King":
-            return reglas.movimiento_king(positions, from_row, from_col, to_row, to_col)
+        elif nombre_pieza == "King":
+            validacion = reglas.movimiento_king(positions, from_row, from_col, to_row, to_col)
         
         # Movimiento Pawn
-        if nombre_pieza == "Pawn":
-            return reglas.movimiento_pawn(positions, from_row, from_col, to_row, to_col)
+        elif nombre_pieza == "Pawn":
+            validacion = reglas.movimiento_pawn(positions, from_row, from_col, to_row, to_col)
         
+        return validacion

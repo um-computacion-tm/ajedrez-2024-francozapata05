@@ -98,7 +98,6 @@ class ReglasDeMovimientos:
         self = positions[from_row][from_col]
         mov_fila = to_row - from_row
         mov_columna = to_col - from_col
-
         destination = positions[to_row][to_col]
 
         direccion = 1 if self.get_color() == "White" else -1
@@ -129,6 +128,7 @@ class ReglasDeMovimientos:
             else:
                 self.__initial_position__ = False
                 return "Valido"
+                
 
         return "MovimientoInvalido"
     
