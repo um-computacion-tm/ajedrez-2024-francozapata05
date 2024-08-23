@@ -32,20 +32,20 @@ class Chess:
     # Esta funcion habilita o no el movimiento
     def habilitar_movimiento(self, destination, from_row, from_col, to_row, to_col):
             
-            # Validamos que el movimiento sea válido
-            validar = self.analizar_movimiento(self.__board__.get_positions(), from_row, from_col, to_row, to_col)
-            if validar == "MovimientoInvalido":
-                return "MovimientoInvalido"
+        # Validamos que el movimiento sea válido
+        validar = self.analizar_movimiento(self.__board__.get_positions(), from_row, from_col, to_row, to_col)
+        if validar == "MovimientoInvalido":
+            return "MovimientoInvalido"
 
-            # Si la pieza destino es el rey contratio, retornamos ReyEliminado, para finalizar el juego
-            if destination != None and destination.get_name() == "King" and destination.get_color() != self.__turn__:
-                self.__ganador__ = self.__turn__
-                return "ReyEliminado"
-            
-            # Si a este punto, esta todo OK. Se mueve la pieza.
-            self.__board__.set_positions(from_row, from_col, to_row, to_col)
-            self.change_turn()    
-            return "Valido"
+        # Si la pieza destino es el rey contratio, retornamos ReyEliminado, para finalizar el juego
+        if destination != None and destination.get_name() == "King" and destination.get_color() != self.__turn__:
+            self.__ganador__ = self.__turn__
+            return "ReyEliminado"
+        
+        # Si a este punto, esta todo OK. Se mueve la pieza.
+        self.__board__.set_positions(from_row, from_col, to_row, to_col)
+        self.change_turn()    
+        return "Valido"
 
     def get_reglas(self):
         return self.__reglas__

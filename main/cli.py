@@ -42,6 +42,7 @@ class Cliente:
     def input_function(self):
             from_row = int(input('From row: '))
 
+            # Si el usuario introduce 999, significa que se quiere salir del juego
             if from_row == 999:
                 return False
 

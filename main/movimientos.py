@@ -6,9 +6,8 @@ class ReglasDeMovimientos:
         pass
     
     def movimiento_diagonal(chess, positions, from_row, from_col, to_row, to_col):
-        self = positions[from_row][from_col]
         
-        #Calculamos la distancia en diagonal entre las casillas
+        #Calculamos la distancia entre las casillas
         mov_fila = abs(to_row) - abs(from_row)
         mov_columna = abs(to_col) - abs(from_col) 
 
@@ -19,31 +18,36 @@ class ReglasDeMovimientos:
             inc_columna = int(mov_columna / abs(mov_columna))
 
             #Analizamos si alguna casilla que atraviese esta ocupada
-            for casilla in range(1, abs(mov_fila) + 1, abs(inc_fila)):
-
-                if casilla == abs(mov_fila) and positions[to_row][to_col] != None:
-                    if positions[to_row][to_col].get_color() != self.__color__:
-                        return "Valido"
-
-                if inc_fila > 0 and inc_columna > 0:
-                    if positions[from_row + casilla][from_col + casilla] != None:
-                        return "MovimientoInvalido"
-
-                elif inc_fila > 0 and inc_columna < 0:
-                    if positions[from_row + casilla][from_col - casilla] != None:
-                        return "MovimientoInvalido"
-
-                elif inc_fila < 0 and inc_columna > 0:
-                    if positions[from_row - casilla][from_col + casilla] != None:
-                        return "MovimientoInvalido"
-
-                elif inc_fila < 0 and inc_columna < 0:
-                    if positions[from_row - casilla][from_col - casilla] != None:
-                        return "MovimientoInvalido"
-
-            return "Valido"
+            return chess.analizar_camino(positions, mov_fila, inc_fila, inc_columna, from_row, from_col, to_row, to_col)
 
         return "MovimientoInvalido"
+
+    def analizar_camino(self, positions, mov_fila, inc_fila, inc_columna, from_row, from_col, to_row, to_col):
+        origen = positions[from_row][from_col]
+        #Analizamos si alguna casilla que atraviese esta ocupada
+        for casilla in range(1, abs(mov_fila) + 1, abs(inc_fila)):
+
+            if casilla == abs(mov_fila) and positions[to_row][to_col] != None:
+                if positions[to_row][to_col].get_color() != origen.__color__:
+                    return "Valido"
+
+            if inc_fila > 0 and inc_columna > 0:
+                if positions[from_row + casilla][from_col + casilla] != None:
+                    return "MovimientoInvalido"
+
+            elif inc_fila > 0 and inc_columna < 0:
+                if positions[from_row + casilla][from_col - casilla] != None:
+                    return "MovimientoInvalido"
+
+            elif inc_fila < 0 and inc_columna > 0:
+                if positions[from_row - casilla][from_col + casilla] != None:
+                    return "MovimientoInvalido"
+
+            elif inc_fila < 0 and inc_columna < 0:
+                if positions[from_row - casilla][from_col - casilla] != None:
+                    return "MovimientoInvalido"
+
+        return "Valido"
     
     def movimiento_horizontal(chess, positions, from_row, from_col, to_row, to_col):
         self = positions[from_row][from_col]

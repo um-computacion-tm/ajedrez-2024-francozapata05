@@ -9,6 +9,10 @@ from main.king import King
 
 class TestChess(unittest.TestCase):
 
+    def test_get_reglas(self):
+        chess = Chess()
+        self.assertIsNotNone(chess.get_reglas())
+
     def test_initial_turn(self):
         chess = Chess()
         # Turno inicial debe ser "White"
@@ -28,6 +32,7 @@ class TestChess(unittest.TestCase):
         # Probar mover pieza a casilla ocupada
         self.assertEqual(chess.move(0, 0, 1, 0), "CasillaOcupada")
         self.assertEqual(chess.move(3, 3, 4, 4), "PiezaNoExiste")
+        self.assertEqual(chess.move(1, 0, 1, 0), "MismaCasilla")
 
 
     def test_get_turn(self):
