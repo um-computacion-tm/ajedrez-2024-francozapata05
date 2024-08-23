@@ -39,7 +39,7 @@ def main():
         except ValueError as e:
             print("El valor introducido no es un entero. Intentelo de nuevo.")
         except (IndexErrorPersonalizada, CasillaOcupada, PiezaNoExiste, MismaCasilla, ColorIncorrecto, MovimientoInvalido) as e:
-            print(e.message)
+            print(e)
 
 
 if __name__ == '__main__':
