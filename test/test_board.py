@@ -30,10 +30,8 @@ class TestBoard(unittest.TestCase):
         positions= chess.get_board().get_positions()
         #Obtener pieza en casilla (1, 0)
         self.assertIsNotNone(positions[1][0])
-
-    def test_get_piece_not_exist(self):
-        chess = Chess()
-        positions= chess.get_board().get_positions()
         #Obtener pieza donde no hay(4, 0)
         self.assertIsNone(positions[4][1])
+
+        
 

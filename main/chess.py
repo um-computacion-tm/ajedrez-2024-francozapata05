@@ -47,6 +47,8 @@ class Chess:
             self.change_turn()    
             return "Valido"
 
+    def get_reglas(self):
+        return self.__reglas__
 
     def change_turn(self):
         if self.__turn__ == "White":

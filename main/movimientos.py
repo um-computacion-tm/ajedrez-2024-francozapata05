@@ -45,43 +45,51 @@ class ReglasDeMovimientos:
 
         return "MovimientoInvalido"
     
-    def movimiento_perpendicular(chess, positions, from_row, from_col, to_row, to_col):
+    def movimiento_horizontal(chess, positions, from_row, from_col, to_row, to_col):
         self = positions[from_row][from_col]
+        # Determinar el incremento
+        step = 1 if to_col > from_col else -1
+
+        for i in range(from_col + step, to_col + step, step):
+
+            if positions[from_row][i] is None:
+                if i == to_col:
+                    return "Valido"
+                continue
+                    
+            if positions[from_row][i] is not None:
+                if i == to_col and positions[from_row][i].get_color() != self.__color__:
+                    return "Valido"
+                return "MovimientoInvalido"
+                
+    def movimiento_vertical(chess, positions, from_row, from_col, to_row, to_col):
+        self = positions[from_row][from_col]
+        # Determinar el incremento
+        step = 1 if to_row > from_row else -1
+
+        for i in range(from_row + step, to_row + step, step):
+
+            if positions[i][from_col] is None:
+                if i == to_row:
+                    return "Valido"
+                continue
+                    
+            if positions[i][from_col] is not None:
+                if i == to_row and positions[i][from_col].get_color() != self.__color__:
+                     return "Valido"
+                return "MovimientoInvalido"
+
+    def movimiento_perpendicular(chess, positions, from_row, from_col, to_row, to_col):
+        reglas = ReglasDeMovimientos()
         if from_row == to_row or from_col == to_col:
             
             #Movimiento horizontal
             if from_row == to_row:
-                # Determinar el incremento
-                step = 1 if to_col > from_col else -1
-
-                for i in range(from_col + step, to_col + step, step):
-
-                    if positions[from_row][i] is None:
-                        if i == to_col:
-                            return "Valido"
-                        continue
-                    
-                    if positions[from_row][i] is not None:
-                        if i == to_col and positions[from_row][i].get_color() != self.__color__:
-                             return "Valido"
-                        return "MovimientoInvalido"
-
+                return reglas.movimiento_horizontal(positions, from_row, from_col, to_row, to_col)
+                
             #Movimiento vertical
             elif from_col == to_col:
-                # Determinar el incremento
-                step = 1 if to_row > from_row else -1
-
-                for i in range(from_row + step, to_row + step, step):
-
-                    if positions[i][from_col] is None:
-                        if i == to_row:
-                            return "Valido"
-                        continue
-                    
-                    if positions[i][from_col] is not None:
-                        if i == to_row and positions[i][from_col].get_color() != self.__color__:
-                             return "Valido"
-                        return "MovimientoInvalido"
+                return reglas.movimiento_vertical(positions, from_row, from_col, to_row, to_col)
             
         return "MovimientoInvalido"
     

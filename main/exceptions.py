@@ -1,5 +1,11 @@
 #Excepciones personalizadas
 
+class IndexErrorPersonalizada(Exception):
+    def __init__(self, message="Numero de fila o columna incorrecto. Intentelo de nuevo."):
+        self.message = message
+        super().__init__(self.message)
+
+
 class CasillaOcupada(Exception):
     def __init__(self, message="La casilla seleccionada ya está ocupada por otra de tus piezas. Intentelo de nuevo."):
         self.message = message
