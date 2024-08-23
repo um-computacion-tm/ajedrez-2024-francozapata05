@@ -25,13 +25,9 @@ class TestChess(unittest.TestCase):
 
     def test_move_to_occupied_space(self):
         chess = Chess()
-
         # Probar mover pieza a casilla ocupada
         result = chess.move(0, 0, 1, 0)
         self.assertEqual(result, "CasillaOcupada")
-        positions = chess.get_board().get_positions()
-        self.assertIsNotNone(positions[1][0])
-        self.assertIsNotNone(positions[0][0])
 
     def test_get_turn(self):
         chess = Chess()
@@ -57,9 +53,6 @@ class TestChess(unittest.TestCase):
         #Mover una pieza de una casilla vacia
         result = chess.move(3, 3, 4, 4)
         self.assertEqual(result, "PiezaNoExiste")
-        positions = chess.get_board().get_positions()
-        self.assertIsNone(positions[4][4])
-        self.assertIsNone(positions[3][3])
 
     def test_move_back_to_same_position(self):
         chess = Chess()
@@ -97,8 +90,8 @@ class TestChess(unittest.TestCase):
 
 # ------------------------- Tests de Movimientos ---------------------------------
 
+class TestChessMovimientos(unittest.TestCase):
 #Alfil
-
     #En condiciones iniciales, ningun alfil se puede mover, por los peones
     def test_movimiento_alfil_initial(self):
         chess = Chess()

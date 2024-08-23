@@ -25,23 +25,9 @@ class Board:
         self.__positions__[0][6] = Knight("White")
         self.__positions__[0][7] = Rook("White")
 
-        self.__positions__[1][0] = Pawn("White")
-        self.__positions__[1][1] = Pawn("White")
-        self.__positions__[1][2] = Pawn("White")
-        self.__positions__[1][3] = Pawn("White")
-        self.__positions__[1][4] = Pawn("White")
-        self.__positions__[1][5] = Pawn("White")
-        self.__positions__[1][6] = Pawn("White")
-        self.__positions__[1][7] = Pawn("White")
-
-        self.__positions__[6][0] = Pawn("Black")
-        self.__positions__[6][1] = Pawn("Black")
-        self.__positions__[6][2] = Pawn("Black")
-        self.__positions__[6][3] = Pawn("Black")
-        self.__positions__[6][4] = Pawn("Black")
-        self.__positions__[6][5] = Pawn("Black")
-        self.__positions__[6][6] = Pawn("Black")
-        self.__positions__[6][7] = Pawn("Black")
+        for i in range(8):
+            self.__positions__[1][i] = Pawn("White")
+            self.__positions__[6][i] = Pawn("Black")
 
         self.__positions__[7][0] = Rook("Black")
         self.__positions__[7][1] = Knight("Black")
