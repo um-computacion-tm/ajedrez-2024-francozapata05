@@ -1,5 +1,8 @@
 Franco Zapata Ingenieria Informatica UM
 
+Falta:
+1. Subir mantenibilidad
+
 # ajedrez-2024-francozapata05
 ajedrez-2024-francozapata05 created by GitHub Classroom
 
