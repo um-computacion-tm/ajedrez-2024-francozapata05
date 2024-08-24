@@ -41,6 +41,7 @@ class Board:
     def get_positions(self):
         return self.__positions__
     
+    # Set positions, actualiza las posiciones del tablero tras un movimiento valido.
     def set_positions(self, from_row, from_col, to_row, to_col):
         # Copiamos la pieza de la casilla origen a la casilla destino
         self.__positions__[to_row][to_col] = self.__positions__[from_row][from_col]

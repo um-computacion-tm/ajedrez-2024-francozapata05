@@ -8,26 +8,38 @@ class Chess:
         self.__ganador__ = None
         self.__reglas__ = ReglasDeMovimientos()
     
+    # Move recibe los datos de la posicion de origen y destino
+    # Es el que permitira o denegara el movimiento
     def move(self, from_row, from_col, to_row, to_col):
 
+        # Si salta alguna excepcion, se retorna el mensaje
+        mensaje = ""
+
         origin_piece = self.__board__.get_piece(from_row, from_col)
-
-        if origin_piece is None:
-            return "PiezaNoExiste"
-
         destination = self.__board__.get_piece(to_row, to_col)
-
-        if origin_piece.get_color() != self.__turn__:
-            return "ColorIncorrecto"
         
-        if from_row == to_row and from_col == to_col:
-            return "MismaCasilla"
+        # Si la pieza origen no existe, se retorna el mensaje
+        if origin_piece is None:
+            mensaje = "PiezaNoExiste"
 
-        if destination is not None and destination.get_color() == self.__turn__:
-            return "CasillaOcupada" 
+        # Si la pieza a mover no es del color del turno actual, se retorna el mensaje
+        elif origin_piece.get_color() != self.__turn__:
+            mensaje = "ColorIncorrecto"
+        
+        # Si la casilla de origen es la misma que la destino, se retorna el mensaje
+        elif from_row == to_row and from_col == to_col:
+            mensaje = "MismaCasilla"
+
+        # Si la casilla destino esta ocupada por una de las piezas del mismo color, se retorna el mensaje
+        elif destination is not None and destination.get_color() == self.__turn__:
+            mensaje = "CasillaOcupada" 
             
-        else:
-            return(self.habilitar_movimiento(destination, from_row, from_col, to_row, to_col))
+        # Si no salto ninguna excepcion, mensaje estara vacio, y se retorna el movimiento
+        if mensaje != "":
+            return(mensaje)
+        
+        # Habilitar movimiento devolvera Valido o MovimientoInvalido
+        return(self.habilitar_movimiento(destination, from_row, from_col, to_row, to_col))
             
     # Esta funcion habilita o no el movimiento
     def habilitar_movimiento(self, destination, from_row, from_col, to_row, to_col):
@@ -65,7 +77,7 @@ class Chess:
     def get_ganador(self):
         return self.__ganador__
 
-    # Determinamos si el movimiento cumple conlas reglas de la pieza a mover
+    # Determinamos si el movimiento cumple con las reglas de la pieza a mover
     def analizar_movimiento(self, positions, from_row, from_col, to_row, to_col):
         nombre_pieza = positions[from_row][from_col].get_name()
         reglas = self.__reglas__
