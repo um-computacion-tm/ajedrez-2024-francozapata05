@@ -129,44 +129,51 @@ class ReglasDeMovimientos:
             
         return "MovimientoInvalido"
     
+
     def movimiento_pawn(chess, positions, from_row, from_col, to_row, to_col):
         
-        pieza_inicial = positions[from_row][from_col]
-        mov_fila = to_row - from_row
-        mov_columna = to_col - from_col
-        destination = positions[to_row][to_col]
-
-        direccion = 1 if pieza_inicial.get_color() == "White" else -1
+        datos = ReglasDeMovimientos.iniciar_metodo_pawn(positions, from_row, from_col, to_row, to_col)
+        direccion = 1 if datos[0].get_color() == "White" else -1
 
         #Analizamos si es su primer movimiento para permitir que se mueva dos espacios
-        if pieza_inicial.__initial_position__ == True:
-            if mov_fila == (2*direccion) and mov_columna == 0 and destination == None:
-                pieza_inicial.__initial_position__ = False
+        if datos[0].__initial_position__ == True:
+            if datos[1] == (2*direccion) and datos[2] == 0 and datos[3] == None:
+                datos[0].__initial_position__ = False
                 return "Valido"
 
         #Movimiento vertical
-        if mov_fila == direccion:
+        if datos[1] == direccion:
             
             #Movimiento diagonal
-            if mov_columna != 0 and destination != None:
+            if datos[2] != 0 and datos[3] != None:
 
-                if sqrt(mov_fila**2 + mov_columna**2) == sqrt(2): 
+                if sqrt(datos[1]**2 + datos[2]**2) == sqrt(2): 
                     
-                    if destination.get_color() != pieza_inicial.get_color():
-                        pieza_inicial.__initial_position__ = False
+                    if datos[3].get_color() != datos[0].get_color():
+                        datos[0].__initial_position__ = False
                         return "Valido"
 
-            if mov_columna == 0 and destination == None:
-                pieza_inicial.__initial_position__ = False
+            if datos[2] == 0 and datos[3] == None:
+                datos[0].__initial_position__ = False
                 return "Valido"
                 
         return "MovimientoInvalido"
     
+    # Hacemos los calculos necesarios para el movimiento de un pawn
+    def iniciar_metodo_pawn(positions, from_row, from_col, to_row, to_col):
+        pieza_inicial = positions[from_row][from_col]
+        mov_fila = to_row - from_row
+        mov_columna = to_col - from_col
+        destination = positions[to_row][to_col]
+        return [pieza_inicial, mov_fila, mov_columna, destination]
+
+    
+    
     def movimiento_knight(chess, positions, from_row, from_col, to_row, to_col):
-        self = positions[from_row][from_col]
+        pieza = positions[from_row][from_col]
 
         # Validar casilla destino
-        if positions[to_row][to_col] != None and positions[to_row][to_col].get_color() == self.__color__:
+        if positions[to_row][to_col] != None and positions[to_row][to_col].get_color() == pieza.__color__:
             return "MovimientoInvalido"
 
         mov_abs = abs(to_row - from_row) + abs(to_col - from_col)
@@ -178,12 +185,12 @@ class ReglasDeMovimientos:
         return "MovimientoInvalido"
     
     def movimiento_king(chess, positions, from_row, from_col, to_row, to_col):
-        self = positions[from_row][from_col]
+        pieza = positions[from_row][from_col]
 
 
         # validar casilla destino
         destination = positions[to_row][to_col]
-        if destination != None and destination.get_color() == self.__color__:
+        if destination != None and destination.get_color() == pieza.__color__:
             return "MovimientoInvalido"
         
         mov_fila = to_row - from_row
