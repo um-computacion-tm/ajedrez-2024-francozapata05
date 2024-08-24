@@ -24,34 +24,50 @@ class ReglasDeMovimientos:
 
         return "MovimientoInvalido"
 
+
+    def calcular_incremento(self, valor):
+        incremento = int(valor / abs(valor))
+        return incremento
+
     def analizar_camino(self, positions, distancias, inputs):
         origen = positions[inputs[0]][inputs[1]]
-        inc_fila = int(distancias[0] / abs(distancias[0]))
-        inc_columna = int(distancias[1] / abs(distancias[1]))
+        inc_fila = self.calcular_incremento(distancias[0])
+        inc_columna = self.calcular_incremento(distancias[1])
+        
         #Analizamos si alguna casilla que atraviese esta ocupada
+        mensaje = "Valido"
         for casilla in range(1, abs(distancias[0]) + 1, abs(inc_fila)):
 
+            # Si se ha llegado al final de la casilla, se detiene el bucle
             if casilla == abs(distancias[0]) and positions[inputs[2]][inputs[3]] != None:
                 if positions[inputs[2]][inputs[3]].get_color() != origen.__color__:
-                    return "Valido"
+                    mensaje = "Valido"
+                    break
 
+            # Movimiento abajo-a-la-derecha
             if inc_fila > 0 and inc_columna > 0:
                 if positions[inputs[0] + casilla][inputs[1] + casilla] != None:
-                    return "MovimientoInvalido"
+                    mensaje = "MovimientoInvalido"
+                    break
 
+            # Movimiento abajo-a-la-izquierda
             elif inc_fila > 0 and inc_columna < 0:
                 if positions[inputs[0] + casilla][inputs[1] - casilla] != None:
-                    return "MovimientoInvalido"
+                    mensaje = "MovimientoInvalido"
+                    break
 
+            # Movimiento arriba-a-la-dereecha
             elif inc_fila < 0 and inc_columna > 0:
                 if positions[inputs[0] - casilla][inputs[1] + casilla] != None:
-                    return "MovimientoInvalido"
+                    mensaje = "MovimientoInvalido"
+                    break
 
+            # Movimiento arriba-a-la-izquierda
             elif inc_fila < 0 and inc_columna < 0:
                 if positions[inputs[0] - casilla][inputs[1] - casilla] != None:
-                    return "MovimientoInvalido"
-
-        return "Valido"
+                    mensaje = "MovimientoInvalido"
+                    break
+        return mensaje
     
     def movimiento_horizontal(chess, positions, from_row, from_col, to_row, to_col):
         self = positions[from_row][from_col]
@@ -103,41 +119,35 @@ class ReglasDeMovimientos:
     
     def movimiento_pawn(chess, positions, from_row, from_col, to_row, to_col):
         
-        self = positions[from_row][from_col]
+        pieza_inicial = positions[from_row][from_col]
         mov_fila = to_row - from_row
         mov_columna = to_col - from_col
         destination = positions[to_row][to_col]
 
-        direccion = 1 if self.get_color() == "White" else -1
+        direccion = 1 if pieza_inicial.get_color() == "White" else -1
 
         #Analizamos si es su primer movimiento para permitir que se mueva dos espacios
-        if self.__initial_position__ == True:
+        if pieza_inicial.__initial_position__ == True:
             if mov_fila == (2*direccion) and mov_columna == 0 and destination == None:
-                self.__initial_position__ = False
+                pieza_inicial.__initial_position__ = False
                 return "Valido"
 
         #Movimiento vertical
         if mov_fila == direccion:
             
             #Movimiento diagonal
-            if mov_columna != 0:
+            if mov_columna != 0 and destination != None:
 
                 if sqrt(mov_fila**2 + mov_columna**2) == sqrt(2): 
                     
-                    if destination == None:
-                        return "MovimientoInvalido"
-                    
-                    if destination.get_color() != self.get_color():
+                    if destination.get_color() != pieza_inicial.get_color():
+                        pieza_inicial.__initial_position__ = False
                         return "Valido"
-                else:
-                    return "MovimientoInvalido"
-            if destination != None:
-                return "MovimientoInvalido"
-            else:
-                self.__initial_position__ = False
+
+            if mov_columna == 0 and destination == None:
+                pieza_inicial.__initial_position__ = False
                 return "Valido"
                 
-
         return "MovimientoInvalido"
     
     def movimiento_knight(chess, positions, from_row, from_col, to_row, to_col):
