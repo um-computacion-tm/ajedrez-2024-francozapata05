@@ -5,12 +5,15 @@ class ReglasDeMovimientos:
     def __init__(self) -> None:
         pass
     
+    # Calculamos la distancia entre las casillas tanto en filas como columnas
     def calcular_distancia(self, from_row, from_col, to_row, to_col):
-        #Calculamos la distancia entre las casillas
+
         mov_fila = abs(to_row) - abs(from_row)
         mov_columna = abs(to_col) - abs(from_col) 
         return [mov_fila, mov_columna]
 
+    # Movimiento diagonal es utilizado por el alfil y la reina
+    # Recibe los datos de la posicion de origen y destino y las posiciones de todo el tablero 
     def movimiento_diagonal(chess, positions, from_row, from_col, to_row, to_col):
         reglas = ReglasDeMovimientos()
         #Calculamos la distancia entre las casilla
@@ -20,6 +23,8 @@ class ReglasDeMovimientos:
 
             #Analizamos si alguna casilla que atraviese esta ocupada
             inputs = [from_row, from_col, to_row, to_col]
+
+            # Analizamos si alguna casilla que atraviese esta ocupada
             return chess.analizar_camino(positions, distancias, inputs)
 
         return "MovimientoInvalido"
@@ -29,6 +34,8 @@ class ReglasDeMovimientos:
         incremento = int(valor / abs(valor))
         return incremento
 
+    # Analizamos si alguna casilla que atraviese esta ocupada
+    # Recive las posiciones del tablero, las distancias en filas y columnas, y los datos de entrada
     def analizar_camino(self, positions, distancias, inputs):
         origen = positions[inputs[0]][inputs[1]]
         inc_fila = self.calcular_incremento(distancias[0])
@@ -69,6 +76,8 @@ class ReglasDeMovimientos:
                     break
         return mensaje
     
+    # Utilizado por Movimiento Perpendicular
+    # Recibe los datos de la posicion de origen y destino y las posiciones de todo el tablero
     def movimiento_horizontal(chess, positions, from_row, from_col, to_row, to_col):
         self = positions[from_row][from_col]
         # Determinar el incremento
@@ -86,6 +95,8 @@ class ReglasDeMovimientos:
                     return "Valido"
                 return "MovimientoInvalido"
                 
+    # Utilizado por Movimiento Perpendicular
+    # Recibe los datos de la posicion de origen y destino y las posiciones de todo el tablero
     def movimiento_vertical(chess, positions, from_row, from_col, to_row, to_col):
         self = positions[from_row][from_col]
         # Determinar el incremento
@@ -103,6 +114,7 @@ class ReglasDeMovimientos:
                      return "Valido"
                 return "MovimientoInvalido"
 
+    # Usado para determinar los movimientos de la torre y la reina
     def movimiento_perpendicular(chess, positions, from_row, from_col, to_row, to_col):
         reglas = ReglasDeMovimientos()
         if from_row == to_row or from_col == to_col:
