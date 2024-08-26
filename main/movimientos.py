@@ -12,6 +12,7 @@ class ReglasDeMovimientos:
         mov_columna = abs(to_col) - abs(from_col) 
         return [mov_fila, mov_columna]
 
+    
     # Movimiento diagonal es utilizado por el alfil y la reina
     # Recibe los datos de la posicion de origen y destino y las posiciones de todo el tablero 
     def movimiento_diagonal(chess, positions, from_row, from_col, to_row, to_col):
@@ -34,8 +35,9 @@ class ReglasDeMovimientos:
         incremento = int(valor / abs(valor))
         return incremento
 
+
     # Analizamos si alguna casilla que atraviese esta ocupada
-    # Recive las posiciones del tablero, las distancias en filas y columnas, y los datos de entrada
+    # Recibe las posiciones del tablero, las distancias en filas y columnas, y los datos de entrada
     def analizar_camino(self, positions, distancias, inputs):
         origen = positions[inputs[0]][inputs[1]]
         inc_fila = self.calcular_incremento(distancias[0])
@@ -50,30 +52,12 @@ class ReglasDeMovimientos:
                 if positions[inputs[2]][inputs[3]].get_color() != origen.__color__:
                     mensaje = "Valido"
                     break
+        
+            # Si alguna de las casillas que atraviese esta ocupada, MovimientoInvalido
+            if positions[inputs[0] + (casilla*inc_fila)][inputs[1] + (casilla*inc_columna)] != None:
+                mensaje = "MovimientoInvalido"
+                break
 
-            # Movimiento abajo-a-la-derecha
-            if inc_fila > 0 and inc_columna > 0:
-                if positions[inputs[0] + casilla][inputs[1] + casilla] != None:
-                    mensaje = "MovimientoInvalido"
-                    break
-
-            # Movimiento abajo-a-la-izquierda
-            elif inc_fila > 0 and inc_columna < 0:
-                if positions[inputs[0] + casilla][inputs[1] - casilla] != None:
-                    mensaje = "MovimientoInvalido"
-                    break
-
-            # Movimiento arriba-a-la-dereecha
-            elif inc_fila < 0 and inc_columna > 0:
-                if positions[inputs[0] - casilla][inputs[1] + casilla] != None:
-                    mensaje = "MovimientoInvalido"
-                    break
-
-            # Movimiento arriba-a-la-izquierda
-            elif inc_fila < 0 and inc_columna < 0:
-                if positions[inputs[0] - casilla][inputs[1] - casilla] != None:
-                    mensaje = "MovimientoInvalido"
-                    break
         return mensaje
     
     # Utilizado por Movimiento Perpendicular
@@ -136,9 +120,9 @@ class ReglasDeMovimientos:
         direccion = 1 if datos[0].get_color() == "White" else -1
 
         #Analizamos si es su primer movimiento para permitir que se mueva dos espacios
-        if datos[0].__initial_position__ == True:
+        if datos[0].get_initial_position() == True:
             if datos[1] == (2*direccion) and datos[2] == 0 and datos[3] == None:
-                datos[0].__initial_position__ = False
+                datos[0].set_initial_position(False)
                 return "Valido"
 
         #Movimiento vertical
@@ -149,16 +133,20 @@ class ReglasDeMovimientos:
 
                 if sqrt(datos[1]**2 + datos[2]**2) == sqrt(2): 
                     
-                    if datos[3].get_color() != datos[0].get_color():
-                        datos[0].__initial_position__ = False
-                        return "Valido"
+                    return ReglasDeMovimientos.peon_comer_pieza(datos)
 
             if datos[2] == 0 and datos[3] == None:
-                datos[0].__initial_position__ = False
+                datos[0].set_initial_position(False)
                 return "Valido"
                 
         return "MovimientoInvalido"
     
+    def peon_comer_pieza(datos):
+        if datos[3].get_color() != datos[0].get_color():
+            datos[0].set_initial_position(False)
+            return "Valido"
+        
+
     # Hacemos los calculos necesarios para el movimiento de un pawn
     def iniciar_metodo_pawn(positions, from_row, from_col, to_row, to_col):
         pieza_inicial = positions[from_row][from_col]

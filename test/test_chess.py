@@ -5,6 +5,7 @@ from main.knight import Knight
 from main.bishop import Bishop
 from main.pawn import Pawn
 from main.king import King
+from main.movimientos import ReglasDeMovimientos
 
 
 class TestChess(unittest.TestCase):
@@ -269,7 +270,7 @@ class TestChessMovimientos(unittest.TestCase):
         self.assertEqual(chess.analizar_movimiento(positions, 6,0,4,0), "Valido")
         self.assertEqual(chess.analizar_movimiento(positions, 6,1,4,1), "Valido")
 
-    def test_movimiento_peon_comer_pieza(self):
+    def test_movimiento_comer_otra_pieza(self):
         chess = Chess()
         board = chess.get_board()
         positions = board.get_positions()
@@ -278,3 +279,4 @@ class TestChessMovimientos(unittest.TestCase):
         positions[6][0] = Pawn("Pawn","Black")
         self.assertEqual(chess.analizar_movimiento(positions, 5,0,6,0), "MovimientoInvalido")
         self.assertEqual(chess.analizar_movimiento(positions, 5,0,6,1), "Valido") 
+
