@@ -1,4 +1,3 @@
-from main.chess import Chess
 from main.exceptions import CasillaOcupada, PiezaNoExiste, MismaCasilla, ColorIncorrecto, MovimientoInvalido, IndexErrorPersonalizada
 from main.cli import Cliente
 
