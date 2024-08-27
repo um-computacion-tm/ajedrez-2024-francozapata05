@@ -52,7 +52,7 @@ class TestChess(unittest.TestCase):
     def test_wrong_turn(self):
         chess = Chess()
         board = chess.get_board()
-        self.assertEquals(chess.move(6, 0, 4, 0), "ColorIncorrecto")
+        self.assertEqual(chess.move(6, 0, 4, 0), "ColorIncorrecto")
 
 
     def test_habilitar_movimiento(self):
