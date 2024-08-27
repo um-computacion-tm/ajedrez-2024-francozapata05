@@ -5,6 +5,8 @@ class Pawn(Piece):
     def __init__(self, name, color):
         super().__init__(name, color)
         self.__initial_position__ = True
+        self.__white_str__ = '♙'
+        self.__black_str__ = '♟'
 
     def get_initial_position(self):
         return self.__initial_position__
@@ -12,5 +14,3 @@ class Pawn(Piece):
     def set_initial_position(self, value):
         self.__initial_position__ = value
 
-    def __str__(self):
-        return '♙' if self.__color__ == 'White' else '♟'
