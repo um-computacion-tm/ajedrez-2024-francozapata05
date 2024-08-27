@@ -7,7 +7,7 @@ WORKDIR /ajedrez-2024-francozapata05
 
 RUN pip install -r requirements.txt
 
-CMD ["sh", "-c", "coverage run -m unittest && coverage report -m"]
+CMD ["sh", "-c", "coverage run -m unittest && coverage report -m && python -m main.main"]
 
 # docker buildx build -t ajedrez . -- no-cache
 # docker run -i ajedrez
