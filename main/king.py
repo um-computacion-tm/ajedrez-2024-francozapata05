@@ -2,9 +2,6 @@ from main.piece import Piece
 
 
 class King(Piece):
-    def __init__(self, name, color):
-        super().__init__(name, color)
-
+    __white_str__ = '♔'
+    __black_str__ = '♚'
     
-    def __str__(self):
-        return '♔' if self.__color__ == 'White' else '♚'
