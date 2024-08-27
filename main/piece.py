@@ -2,8 +2,6 @@ class Piece:
     def __init__(self, name, color):
         self.__color__ = color
         self.__name__ = name
-        self.__white_str__ = ""
-        self.__black_str__ = ""
 
     def get_color(self):
         return self.__color__
