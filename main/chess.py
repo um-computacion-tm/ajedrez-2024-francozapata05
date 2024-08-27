@@ -38,6 +38,7 @@ class Chess:
         if mensaje != "":
             return(mensaje)
         
+        # Si llegamos hasta aqui, no hay ninguna excepcion..
         # Habilitar movimiento devolvera Valido o MovimientoInvalido
         return(self.habilitar_movimiento(destination, from_row, from_col, to_row, to_col))
             
@@ -62,6 +63,7 @@ class Chess:
     def get_reglas(self):
         return self.__reglas__
 
+    # Funcion para cambiar el turno de la partida, cada vez que se valide un movimiento. Cambia al turno contrario.
     def change_turn(self):
         if self.__turn__ == "White":
             self.__turn__ = "Black"
@@ -106,4 +108,5 @@ class Chess:
         elif nombre_pieza == "Pawn":
             validacion = reglas.movimiento_pawn(positions, from_row, from_col, to_row, to_col)
         
+        # Puede ser "Valido" o "MovimientoInvalido"
         return validacion

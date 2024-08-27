@@ -5,6 +5,7 @@ import os
 
 class Cliente:
     # Esta funcion detecta que sistema operativo estamos usando, para poder limpiar la consola
+    # Con el objetivo de que cada vez que se mueva una pieza, se limpie la consola y se imprima el tablero actualizado
     def clear_console(self):
         # Verifica si es Windows o Linux/macOS
         if os.name == 'nt':  # Para Windows
@@ -22,6 +23,7 @@ class Cliente:
 
 
     def comenzar_iteracion(self,chess, positions):
+        # EN cada turno, imprimimos informacion par ael usuario. (como salir y turno a jugar)
         print("Para salir inserte 999 en fila de origen.")
         print("Turno: " + chess.get_turn())
         # Imprimiendo el tablero con números de fila y columna
@@ -35,9 +37,6 @@ class Cliente:
             print(f'{i} | {fila_str} |')  # Imprimir número de fila seguido de la fila
             print("  " + "----" * 8)  # Imprimir línea de separación entre filas
 
-    def buscar_index_error(self, input):
-        if not (0 <= input < 8):
-            raise IndexErrorPersonalizada
 
     def input_function(self):
             from_row = int(input('From row: '))
@@ -59,7 +58,14 @@ class Cliente:
 
             return [from_row, from_col, to_row, to_col]
 
-        
+    # Esta funcion recibe cada input y verifica que sea un numero valido. Si no lo es, lanza una excepcion. 
+    # Haciendo que el usuario intente de nuevo.
+    def buscar_index_error(self, input):
+        if not (0 <= input < 8):
+            raise IndexErrorPersonalizada
+
+    # Esta funcion recive el movimiento y verifica que sea un movimiento valido. Si no lo es, lanza una excepcion.
+    # Haciendo que el usuario intente de nuevo.
     def detectar_exepcion(self, movement):
         if movement == "ColorIncorrecto":
                 raise ColorIncorrecto

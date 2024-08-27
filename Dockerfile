@@ -7,9 +7,9 @@ WORKDIR /ajedrez-2024-francozapata05
 
 RUN pip install -r requirements.txt
 
-CMD ["sh", "-c", "coverage run -m unittest && coverage report -m && python main.py"]
+CMD ["sh", "-c", "coverage run -m unittest && coverage report -m"]
 
-# docker buildx build -t ajedrez .
+# docker buildx build -t ajedrez . -- no-cache
 # docker run -i ajedrez
 
 # docker ps --> muestra cuales son las imagenes de Docker que se están ejecutando

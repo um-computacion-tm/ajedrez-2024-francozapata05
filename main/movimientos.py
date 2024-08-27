@@ -31,12 +31,7 @@ class ReglasDeMovimientos:
         return "MovimientoInvalido"
 
 
-    def calcular_incremento(self, valor):
-        incremento = int(valor / abs(valor))
-        return incremento
-
-
-    # Analizamos si alguna casilla que atraviese esta ocupada
+    # Analizamos si alguna casilla que atraviese esta ocupada para el metodo movimiento diagonal
     # Recibe las posiciones del tablero, las distancias en filas y columnas, y los datos de entrada
     def analizar_camino(self, positions, distancias, inputs):
         origen = positions[inputs[0]][inputs[1]]
@@ -60,6 +55,26 @@ class ReglasDeMovimientos:
 
         return mensaje
     
+    # Calculamos la distancia entre las casillas tanto en filas como columnas para el metodo analizar camino
+    def calcular_incremento(self, valor):
+        incremento = int(valor / abs(valor))
+        return incremento
+    
+    # Usado para determinar los movimientos de la torre y la reina
+    def movimiento_perpendicular(chess, positions, from_row, from_col, to_row, to_col):
+        reglas = ReglasDeMovimientos()
+        if from_row == to_row or from_col == to_col:
+            
+            #Movimiento horizontal
+            if from_row == to_row:
+                return reglas.movimiento_horizontal(positions, from_row, from_col, to_row, to_col)
+                
+            #Movimiento vertical
+            elif from_col == to_col:
+                return reglas.movimiento_vertical(positions, from_row, from_col, to_row, to_col)
+            
+        return "MovimientoInvalido"
+
     # Utilizado por Movimiento Perpendicular
     # Recibe los datos de la posicion de origen y destino y las posiciones de todo el tablero
     def movimiento_horizontal(chess, positions, from_row, from_col, to_row, to_col):
@@ -97,23 +112,9 @@ class ReglasDeMovimientos:
                 if i == to_row and positions[i][from_col].get_color() != self.__color__:
                      return "Valido"
                 return "MovimientoInvalido"
-
-    # Usado para determinar los movimientos de la torre y la reina
-    def movimiento_perpendicular(chess, positions, from_row, from_col, to_row, to_col):
-        reglas = ReglasDeMovimientos()
-        if from_row == to_row or from_col == to_col:
-            
-            #Movimiento horizontal
-            if from_row == to_row:
-                return reglas.movimiento_horizontal(positions, from_row, from_col, to_row, to_col)
-                
-            #Movimiento vertical
-            elif from_col == to_col:
-                return reglas.movimiento_vertical(positions, from_row, from_col, to_row, to_col)
-            
-        return "MovimientoInvalido"
     
 
+    # Movimiento del Peon
     def movimiento_pawn(chess, positions, from_row, from_col, to_row, to_col):
         
         datos = ReglasDeMovimientos.iniciar_metodo_pawn(positions, from_row, from_col, to_row, to_col)
@@ -132,7 +133,7 @@ class ReglasDeMovimientos:
             if datos[2] != 0 and datos[3] != None:
 
                 if sqrt(datos[1]**2 + datos[2]**2) == sqrt(2): 
-                    
+                    # Si el movimiento es diagonal, solo se valida si es para comer a otra pieza.
                     return ReglasDeMovimientos.peon_comer_pieza(datos)
 
             if datos[2] == 0 and datos[3] == None:
@@ -141,12 +142,6 @@ class ReglasDeMovimientos:
                 
         return "MovimientoInvalido"
     
-    def peon_comer_pieza(datos):
-        if datos[3].get_color() != datos[0].get_color():
-            datos[0].set_initial_position(False)
-            return "Valido"
-        
-
     # Hacemos los calculos necesarios para el movimiento de un pawn
     def iniciar_metodo_pawn(positions, from_row, from_col, to_row, to_col):
         pieza_inicial = positions[from_row][from_col]
@@ -154,16 +149,27 @@ class ReglasDeMovimientos:
         mov_columna = to_col - from_col
         destination = positions[to_row][to_col]
         return [pieza_inicial, mov_fila, mov_columna, destination]
+    
+    # Validamos si el intento de comer a otra pieza es valido
+    # Datos = [pieza_inicial, mov_fila, mov_columna, destino]
+    def peon_comer_pieza(datos):
+        if datos[3].get_color() != datos[0].get_color():
+            datos[0].set_initial_position(False)
+            return "Valido"
+        else:
+            return "MovimientoInvalido"
 
-    
-    
+
+    # Movimiento para el caballo    
     def movimiento_knight(chess, positions, from_row, from_col, to_row, to_col):
         pieza = positions[from_row][from_col]
 
-        # Validar casilla destino
+        # Si la casilla destino esta ocupada por una de las piezas del mismo color, "MovimientoInvalido"
         if positions[to_row][to_col] != None and positions[to_row][to_col].get_color() == pieza.__color__:
             return "MovimientoInvalido"
-
+        
+        # Analizamos matematicantamente si el movimiento es valido
+        # El desplazamiento del caballo es siempre 3 casillas
         mov_abs = abs(to_row - from_row) + abs(to_col - from_col)
         if mov_abs == 3:
             if abs(to_row - from_row) > 2 or abs(to_col - from_col) > 2:
@@ -172,11 +178,11 @@ class ReglasDeMovimientos:
 
         return "MovimientoInvalido"
     
+    # Movimiento del Rey
     def movimiento_king(chess, positions, from_row, from_col, to_row, to_col):
         pieza = positions[from_row][from_col]
 
-
-        # validar casilla destino
+        # Si la casilla destino esta ocupada por una de las piezas del mismo color, "MovimientoInvalido"
         destination = positions[to_row][to_col]
         if destination != None and destination.get_color() == pieza.__color__:
             return "MovimientoInvalido"
@@ -191,6 +197,7 @@ class ReglasDeMovimientos:
 
         return "MovimientoInvalido"
     
+    # Movimiento de la Reina
     def movimiento_queen(chess, positions, from_row, from_col, to_row, to_col):
 
         mov_vertical = to_row - from_row

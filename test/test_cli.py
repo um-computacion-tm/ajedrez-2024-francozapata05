@@ -1,6 +1,7 @@
 from main.cli import Cliente
 import unittest
 from unittest.mock import patch
+from io import StringIO
 import os
 from main.chess import Chess
 from main.exceptions import CasillaOcupada, PiezaNoExiste, MismaCasilla, ColorIncorrecto, MovimientoInvalido, IndexErrorPersonalizada
@@ -34,8 +35,8 @@ class TestCli(unittest.TestCase):
         os.name = 'linux'
         self.assertEqual(Cliente.clear_console(self), None)
 
-
-    def test_comenzar_iteracion(self):
+    @patch('sys.stdout', new_callable=StringIO)
+    def test_comenzar_iteracion(self, mock_stdout):
         cliente = Cliente()
         chess = Chess()
         positions = chess.get_board().get_positions()
